@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <link rel="stylesheet" href="bTagStyle.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div id="tag" class="">
+        <div class="tagSelectors">
+            <div class="TSleft">
+                <h4>Untagged Staff</h4>
+            </div>
+            <div class="TSright">
+                <div class="tagBarCategories"><p class="categoryButton catActive">Teams</p><p class="categoryButton">Award rates</p></div>
+                <div class="tagBar">
+                    <p v-bind:data-id="tag.id" v-on:click="tagClick(tag)" v-for="tag in tags" v-bind:style="tag.color" v-bind:class="[tag.selected, tagStyle, tag.tag]">{{tag.tag}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="tagGrid">
+            <div class="untagged">
+                <div v-on:click="addTag(staff)" v-for="staff in untaggedStaff" class="staffTag">
+                    <div class="name">
+                        <span class="plusMinus">&plus;</span>
+                        <p>{{staff.name}}</p>
+                    </div>
+                    <p class="awardDisp">Award: {{staff.award}}</p>
+                    <div class="colorBar">
+                        <div v-for="team in staff.teams" v-bind:style="team.color" class="teamColor"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="tagTeamed">
+                <div v-on:click="removeTag(staff)" v-for="staff in filteredStaff" class="staffTag">
+                    <div class="name">
+                        <span class="plusMinus">&minus;</span>
+                        <p>{{staff.name}}</p>
+                    </div>
+                    <p class="awardDisp">Award: {{staff.award}}</p>
+                    <div class="colorBar">
+                        <div v-for="team in staff.teams" v-bind:style="team.color" class="teamColor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="staff.js"></script>
+    <script src="tags.js"></script>
+
+    <script src="bulkTagging.js"></script>
+</body>
+
+</html>
